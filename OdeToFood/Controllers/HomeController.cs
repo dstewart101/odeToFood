@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OdeToFood.Interfaces;
 using OdeToFood.Models;
+using OdeToFood.Services;
+using OdeToFood.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,14 +13,18 @@ namespace OdeToFood.Controllers
     public class HomeController: Controller
     {
 
-        public IRestaurantData _restaurantData;
+        private IRestaurantData _restaurantData;
+        private IGreeter _greeter;
 
-        public HomeController(IRestaurantData restaurantData) {
+        public HomeController(IRestaurantData restaurantData, IGreeter greeter) {
             _restaurantData = restaurantData;
+            _greeter = greeter;
         }
 
         public IActionResult Index() {
-            var Model = _restaurantData.GetAll();
+            var Model = new HomeIndexViewModel();
+            Model.Restaurants = _restaurantData.GetAll();
+            Model.CurrentMessage = _greeter.GetMessageOfTheDay();
             return View(Model);
         }
     }
