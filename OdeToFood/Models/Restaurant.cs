@@ -9,5 +9,6 @@ namespace OdeToFood.Models
     {
         public int Id { get; set; }
         public String Name { get; set; }
+        public String Cuisine { get; set; }
     }
 }
