@@ -9,5 +9,6 @@ namespace OdeToFood.Interfaces
     public interface IRestaurantData
     {
         IEnumerable<Restaurant> GetAll();
+        Restaurant GetSingle(int id);
     }
 }
