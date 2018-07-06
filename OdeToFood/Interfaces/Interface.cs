@@ -10,5 +10,6 @@ namespace OdeToFood.Interfaces
     {
         IEnumerable<Restaurant> GetAll();
         Restaurant GetSingle(int id);
+        Restaurant Add(Restaurant restaurant);
     }
 }
