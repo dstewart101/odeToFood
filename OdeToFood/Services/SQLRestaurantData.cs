@@ -27,7 +27,7 @@ namespace OdeToFood.Services
 
         public IEnumerable<Restaurant> GetAll()
         {
-            return _context.Restaurants.OrderBy();
+            return _context.Restaurants.OrderBy(r => r.Name);
         }
 
         public Restaurant GetSingle(int id)

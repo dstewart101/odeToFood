@@ -10,7 +10,7 @@ namespace OdeToFood.Data
     public class OdeToFoodDbContext : DbContext
     {
 
-        public OdeToFoodDbContext(DbContextOptions options) :base(otions)
+        public OdeToFoodDbContext(DbContextOptions options) :base(options)
         {
 
         }
