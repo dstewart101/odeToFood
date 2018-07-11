@@ -1,10 +1,8 @@
 ﻿@model OdeToFood.ViewModels.HomeIndexViewModel
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title></title>
-</head>
-<body>
+@{
+    ViewBag.Title = "OdeToFood Home Page";
+} 
     <table>
         @foreach (var restaurant in Model.Restaurants)
         {
@@ -15,8 +13,14 @@
             </tr>
         }
     </table>
-    <a asp-action="create">Add New Restaurant</a>
+    <p>
+        <a asp-action="create">Add New Restaurant</a>
+    </p>
 
-    @Model.CurrentMessage
-</body>
-</html>
+    <div>
+        <p>
+            @Model.CurrentMessage - @DateTime.Now.Year
+        </p>
+    </div>
+    
+    
