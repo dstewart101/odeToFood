@@ -32,7 +32,7 @@ namespace OdeToFood.Services
 
         public Restaurant GetSingle(int id)
         {
-            throw new NotImplementedException();
+            return _context.Restaurants.FirstOrDefault(r => r.Id == id);
         }
     }
 }
