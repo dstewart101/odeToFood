@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -29,6 +31,14 @@ namespace OdeToFood
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(options => {
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+            })
+            .AddOpenIdConnect(options => {
+                _configuration.Bind("AzureAd", options);
+            })
+            .AddCookie();
             services.AddSingleton<IGreeter, Greeter>();
             services.AddDbContext<OdeToFoodDbContext>(options => options.UseSqlServer(_configuration.GetConnectionString("OdeToFood")));
             services.AddScoped<IRestaurantData, SQLRestaurantData>();
@@ -47,7 +57,10 @@ namespace OdeToFood
 
             app.UseRewriter(new RewriteOptions().AddRedirectToHttpsPermanent());
 
+
             app.UseStaticFiles();
+
+            app.UseAuthentication();
 
             app.UseMvc(ConfigureRoutes);
 
