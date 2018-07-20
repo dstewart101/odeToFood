@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using OdeToFood.Interfaces;
 using OdeToFood.Models;
 using OdeToFood.Services;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace OdeToFood.Controllers
 {
+    //[Authorize]
     public class HomeController: Controller
     {
 
@@ -21,6 +23,7 @@ namespace OdeToFood.Controllers
             _greeter = greeter;
         }
 
+        [AllowAnonymous]
         public IActionResult Index() {
             var Model = new HomeIndexViewModel();
             Model.Restaurants = _restaurantData.GetAll();
@@ -28,6 +31,7 @@ namespace OdeToFood.Controllers
             return View(Model);
         }
 
+        [AllowAnonymous]
         public IActionResult Details(int id) {
             var model = _restaurantData.GetSingle(id);
             if (model == null)
